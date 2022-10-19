@@ -1,10 +1,8 @@
-'''
-
-'''
-
+#This is a GramSchmidt Calculator
+#Created: 10/19/2022
+#Author: Sijing Zhu
 
 import math
-
 
 '''GramSchmidt class holds the methods for gram schmidt process'''
 class GramSchmidt:
@@ -141,10 +139,14 @@ class GramSchmidt:
 
 
     '''transpose the given matrix'''
-    def transpose(vlist):
+    def transpose(self, vlist):
         new = []
-        
-
+        for i in range(len(vlist[0])):
+            v = []
+            for j in range(len(vlist)):
+                v.append(vlist[j][i])
+            new.append(v)
+        return new
 
 
     '''print the matrix as columns'''
@@ -161,6 +163,8 @@ if __name__ == '__main__':
     list1 = [[-3,-2,4,3,1,2],[1,-5,3,1,3,-2], [4,-1,2,-2,4,1],[8,2,5,-6,-2,-13],[0,5,5,-1,-2,0],[-3,3,-3,-3,-2,2]]
     list2 = [[-1,-5,-5,3,2,-3,2],[5,-5,-5,1,4,3,5],[7,5,5,-5,0,9,1],[-2,-1,5,2,5,5,1],[3,-4,4,-1,2,2,1]]
     list3 = [[1,-2,0,5],[-4,1,5,-1],[-8,7,12,5],[0,4,-1,-4],[-2,-1,-3,1],[-2,1,4,1]]
+
+    test = [[1,2],[3,4],[5,6]]
     
     g1 = GramSchmidt()
 
@@ -171,8 +175,4 @@ if __name__ == '__main__':
     g1.toString(c1)
     g1.toString(c2)
     g1.toString(c3)
-
-    # print(g1.isLinearCombo([1,2,3,4,5,6], c))
-    #print(g1.orthoProjection([1,2,3], ortho))
-    # print(g1.compareList(list3,list2))
-    # print(g1.isLinearCombo(list1, ortho))
+    print(g1.transpose(test))
