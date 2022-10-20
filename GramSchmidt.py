@@ -1,6 +1,7 @@
 #This is a GramSchmidt Calculator
 #Created: 10/19/2022
 #Author: Sijing Zhu
+#GitHub Page: https://github.com/PeashooterBiu/GramSchmidt-Calculator
 
 import math
 
@@ -83,7 +84,7 @@ class GramSchmidt:
     '''determine whether the given tuple is nil'''
     def isNil(self, v1):
         for i in v1:
-            if i != 0:
+            if round(i, 5) != 0:
                 return False
         return True
 
@@ -132,10 +133,9 @@ class GramSchmidt:
         # round each number in the orthoList
         for i in range(len(orthoList)):
             for j in range(len(orthoList[0])):
-                orthoList[i][j] = round(orthoList[i][j],2)
-
+                orthoList[i][j] = round(orthoList[i][j],3)
+                
         return orthoList
-
 
 
     '''transpose the given matrix'''
@@ -156,23 +156,69 @@ class GramSchmidt:
         print("\n")
 
 
+    '''generate a standard basis tuple given the dimension and the 1 slot'''
+    def E(self, dimension, k):
+        Ek = [0]*dimension
+        Ek[k] = 1
+        return Ek
+    
+
+    '''determine whether v is within the range of matrix M'''
+    def isWithinRange(self, v, M):
+        M.append(v)
+        orthoList = self.orthogonalize(M)
+        return self.isNil(orthoList[len(orthoList)-1])
+
+
+
+    # '''determine whether the standard basis tuples are in the span of the given basis'''
+    # def E_within_span(self, dimension, basis):
+    #     for k in range(dimension):
+    #         #boolean
+    #         bol = self.isLinearCombo(self.E(dimension, k), basis)
+    #         if bol == True:
+    #             print("E", k+1, ":" , "  within range of matrix")
+    #         else:
+    #             print("E", k+1, ":" , "  not within range of matrix")
+    #     print("\n")
+    
+
+
 
 
 '''main method that calls the calculation'''
 if __name__ == '__main__':
+    g1 = GramSchmidt()
+
     list1 = [[-3,-2,4,3,1,2],[1,-5,3,1,3,-2], [4,-1,2,-2,4,1],[8,2,5,-6,-2,-13],[0,5,5,-1,-2,0],[-3,3,-3,-3,-2,2]]
     list2 = [[-1,-5,-5,3,2,-3,2],[5,-5,-5,1,4,3,5],[7,5,5,-5,0,9,1],[-2,-1,5,2,5,5,1],[3,-4,4,-1,2,2,1]]
     list3 = [[1,-2,0,5],[-4,1,5,-1],[-8,7,12,5],[0,4,-1,-4],[-2,-1,-3,1],[-2,1,4,1]]
 
-    test = [[1,2],[3,4],[5,6]]
+    print(g1.isWithinRange([1,2,3,4,5,6],list1))
+    print(g1.isWithinRange([1,2,3,4,5,6,7],list2))
+    print(g1.isWithinRange([1,2,3,4],list3))
+
+    list1.append([1,2,3,4,5,6])
+    list2.append([1,2,3,4,5,6,7])
+    list3.append([1,2,3,4])
+
+    # trans1 = g1.transpose(list1)
+    # trans2 = g1.transpose(list2)
+    # trans3 = g1.transpose(list3)
+
+    # trans1.append(g1.E(6,0))
+    # trans2.append(g1.E(5,0))
+    # trans3.append(g1.E(6,0))
+
+    # t1 = g1.orthogonalize(list1)
+    # t2 = g1.orthogonalize(list2)
+    # t3 = g1.orthogonalize(list3)
+
+    # g1.toString(t1)
+    # g1.toString(t2)
+    # g1.toString(t3)
+
+
+
+
     
-    g1 = GramSchmidt()
-
-    c1 = g1.orthogonalize(list1)
-    c2 = g1.orthogonalize(list2)
-    c3 = g1.orthogonalize(list3)
-
-    g1.toString(c1)
-    g1.toString(c2)
-    g1.toString(c3)
-    print(g1.transpose(test))
